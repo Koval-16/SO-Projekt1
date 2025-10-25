@@ -1,0 +1,3 @@
+C:/Users/kuba/Desktop/5 SEMESTR/Systemy Operacyjne/p1/projekt/build/CMakeFiles/aizo.dir
+C:/Users/kuba/Desktop/5 SEMESTR/Systemy Operacyjne/p1/projekt/build/CMakeFiles/edit_cache.dir
+C:/Users/kuba/Desktop/5 SEMESTR/Systemy Operacyjne/p1/projekt/build/CMakeFiles/rebuild_cache.dir

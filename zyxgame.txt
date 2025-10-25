@@ -1,0 +1,6 @@
+5
+Talizman 4 5 4 5
+Szachy 4 9 5 4
+Chinczyk 5 4 4 5
+Warcaby 5 9 4 2
+Mlynek 5 9 2 5
