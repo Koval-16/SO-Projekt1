@@ -116,39 +116,25 @@ void Sort::drunk_sort(Structure<T> &structure) {
     }
 }
 
-// ##################################################################
-// ##               NOWA SEKCJA - WIELOWĄTKOWY QUICKSORT           ##
-// ##################################################################
-
 // QuickSort Multi-Threaded (using std::async)
 template <typename T>
 void Sort::quick_sort_multithreaded(Structure<T> &structure, int left, int right, int modifier) {
-    if (left >= right) {
-        return;
-    }
+    if (left >= right) return;
 
     unsigned int num_threads = std::thread::hardware_concurrency();
 
-    // Jeśli mamy 1 rdzeń, nie ma sensu tworzyć wątków
     if (num_threads <= 1) {
         quick_sort(structure, left, right, modifier);
         return;
     }
 
-    // Minimalna wielkość zadania, aby opłacało się je dzielić
     const int MIN_JOB_PER_THREAD = 1000;
 
-    // --- 2. Stwórz 'num_threads' kawałków pracy ---
-    // (Jeśli num_threads = 2, ta pętla zrobi 1 podział - jak Twój kod)
-    // (Jeśli num_threads = 12, ta pętla zrobi 11 podziałów)
-
     std::vector<std::pair<int, int>> chunks;
-    chunks.push_back({left, right}); // Zaczynamy z 1 kawałkiem (cała tablica)
+    chunks.push_back({left, right});
 
-    // Chcemy mieć 'num_threads' kawałków, więc wykonujemy 'num_threads - 1' podziałów
     for (unsigned int i = 0; i < num_threads - 1; ++i) {
 
-        // Znajdź największy kawałek na liście, aby go podzielić (lepsze równoważenie)
         int largest_chunk_index = -1;
         int max_size = -1;
         for (int j = 0; j < chunks.size(); ++j) {
@@ -159,101 +145,32 @@ void Sort::quick_sort_multithreaded(Structure<T> &structure, int left, int right
             }
         }
 
-        // Jeśli największy kawałek jest za mały, nie dzielmy go już.
         if (max_size < (MIN_JOB_PER_THREAD * 2)) break;
 
-        // Mamy największy kawałek, wyjmij go z listy
         std::pair<int, int> chunk_to_split = chunks[largest_chunk_index];
         std::swap(chunks[largest_chunk_index], chunks.back());
         chunks.pop_back();
 
-        // Podziel go
         int l = chunk_to_split.first;
         int r = chunk_to_split.second;
         int q = partition(structure, l, r, modifier);
 
-        // Wrzuć dwa nowe, mniejsze kawałki na listę
-        if (l <= q) {
-            chunks.push_back({l, q});
-        }
-        if (q + 1 <= r) {
-            chunks.push_back({q + 1, r});
-        }
+        if (l <= q) chunks.push_back({l, q});
+        if (q + 1 <= r) chunks.push_back({q + 1, r});
     }
 
-    // --- 3. Uruchom wątki ---
-    // Mamy teraz `chunks.size()` kawałków pracy
 
     std::vector<std::future<void>> futures;
 
-    // Uruchom N-1 wątków, zostawiając ostatni kawałek dla wątku głównego
     while (chunks.size() > 1) {
         std::pair<int, int> chunk = chunks.back();
         chunks.pop_back();
-
-        // Uruchamiamy std::async na JEDNOWĄTKOWYM quick_sorcie
-        // Dokładnie tak, jak w Twojej 2-wątkowej funkcji
-        futures.push_back(
-                std::async(std::launch::async,
-                           &Sort::quick_sort<T>, this,
-                           std::ref(structure), chunk.first, chunk.second, modifier)
-        );
+        futures.push_back(std::async(std::launch::async,&Sort::quick_sort<T>, this,std::ref(structure), chunk.first, chunk.second, modifier));
     }
 
-    // --- 4. Sortuj ostatni kawałek w wątku głównym ---
-    if (!chunks.empty()) {
-        quick_sort(structure, chunks[0].first, chunks[0].second, modifier);
-    }
-
-    // --- 5. Czekaj na resztę (tak jak future_left.get()) ---
-    for (auto& f : futures) {
-        f.get();
-    }
+    if (!chunks.empty()) quick_sort(structure, chunks[0].first, chunks[0].second, modifier);
+    for (auto& f : futures) f.get();
 }
-
-// ##################################################################
-// ##                     KONIEC NOWEJ SEKCJI                      ##
-// ##################################################################
-
-
-// ##################################################################
-// ##     NOWA SEKCJA - POPRAWIONY WIELOWĄTKOWY QUICKSORT (HYBRYDOWY)
-// ##################################################################
-
-// QuickSort Multi-Threaded (Hybrid Version)
-template <typename T>
-void Sort::multi_quick_sort(Structure<T> &structure, int left, int right, int modifier) {
-    if (left >= right) {
-        return; // Przypadek bazowy
-    }
-
-    // Ten próg jest nadal przydatny.
-    // Jeśli cała tablica jest mała, nie ma sensu w ogóle tworzyć nowego wątku.
-    const int THRESHOLD = 10000; // Zwiększyłem próg, dla 1000 nie warto odpalać wątku
-
-    if ((right - left) < THRESHOLD) {
-        // Tablica jest za mała na wielowątkowość, użyj oryginalnego jednowątkowego quick_sort
-        quick_sort(structure, left, right, modifier);
-    } else {
-        // Tablica jest duża - dokonaj JEDNEGO podziału
-        int q = partition(structure, left, right, modifier);
-
-        // Uruchom sortowanie lewej partycji asynchronicznie (w nowym wątku),
-        // ALE ten wątek będzie sortował już do końca JEDNOWĄTKOWO
-        // (dlatego wywołujemy &Sort::quick_sort, a NIE &Sort::quick_sort_multithreaded)
-        auto future_left = std::async(std::launch::async,
-                                      &Sort::quick_sort<T>, this, // <-- KLUCZOWA POPRAWKA
-                                      std::ref(structure), left, q, modifier);
-
-        // Sortuj prawą partycję w *bieżącym* wątku,
-        // RÓWNIEŻ jednowątkowo do końca.
-        quick_sort(structure, q + 1, right, modifier); // <-- KLUCZOWA POPRAWKA
-
-        // Zaczekaj na zakończenie pracy drugiego wątku
-        future_left.get();
-    }
-}
-// #############################################
 
 // QuickSort
 template <typename T>
@@ -381,13 +298,6 @@ template void Sort::quick_sort_multithreaded<int>(Structure<int>&,int left,int r
 template void Sort::quick_sort_multithreaded<float>(Structure<float>&,int left,int right, int modifier);
 template void Sort::quick_sort_multithreaded<char*>(Structure<char*>&,int left,int right, int modifier);
 template void Sort::quick_sort_multithreaded<BoardGame>(Structure<BoardGame>&,int left,int right, int modifier);
-
-// Instancje dla nowej funkcji wielowątkowej
-template void Sort::multi_quick_sort<int>(Structure<int>&,int left,int right, int modifier);
-template void Sort::multi_quick_sort<float>(Structure<float>&,int left,int right, int modifier);
-template void Sort::multi_quick_sort<char*>(Structure<char*>&,int left,int right, int modifier);
-template void Sort::multi_quick_sort<BoardGame>(Structure<BoardGame>&,int left,int right, int modifier);
-
 
 template int Sort::partition<int>(Structure<int> &structure, int left, int right, int modifier);
 template int Sort::partition<float>(Structure<float> &structure, int left, int right, int modifier);

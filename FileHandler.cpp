@@ -122,7 +122,7 @@ void FileHandler::save_test(int i, int algorithm, int type, int amount, int dist
     else if(algorithm==2) file2 << "Shell" << "\t";
     else if(algorithm==3) file2 << "Quick" << "\t";
     else if(algorithm==4) file2 << "Drunk" << "\t";
-    else if(algorithm==5 || algorithm==6) file2 << "Multi" << "\t";
+    else if(algorithm==5) file2 << "Multi" << "\t";
 
     if(type==0) file2 << "Intgr" << "\t";
     else if(type==1) file2 << "Float" << "\t";
@@ -141,7 +141,7 @@ void FileHandler::save_test(int i, int algorithm, int type, int amount, int dist
         if(modifier==0) file2 << "Frml1" << "\t";
         else if(modifier==1) file2 << "Frml2" << "\t";
     }
-    else if(algorithm==3 || algorithm==5 || algorithm==6){
+    else if(algorithm==3 || algorithm==5){
         if(modifier==0) file2 << "MID-P" << "\t";
         else if(modifier==1) file2 << "LFT-P" << "\t";
         else if(modifier==2) file2 << "RGH-P" << "\t";

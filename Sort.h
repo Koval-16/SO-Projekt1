@@ -20,8 +20,6 @@ public:
     void drunk_sort(Structure<T>& structure); // Drunk HeapSort
     template <typename T>
     void quick_sort_multithreaded(Structure<T> &structure, int left, int right, int modifier);
-    template <typename T>
-    void multi_quick_sort(Structure<T> &structure, int left, int right, int modifier);
     template<typename T>
     bool verify(Structure<T>& structure); // Function to verify
 private:

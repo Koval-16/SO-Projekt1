@@ -34,7 +34,7 @@ void Main::start(int arg_number, char *arg_values[]) {
             std::string input = arg_values[4];
             std::string output = arg_values[5];
             int modifier = (arg_number>=7) ? std::stoi(arg_values[6]) : 0;
-            if(algorithm<0 || algorithm>6) throw std::exception();
+            if(algorithm<0 || algorithm>5) throw std::exception();
             if(type<0 || type>3) throw std::exception();
             file_test_mode(algorithm, type, input, output, timer, modifier);
         }
@@ -50,7 +50,7 @@ void Main::start(int arg_number, char *arg_values[]) {
             int distribution = std::stoi(arg_values[5]);
             std::string output = arg_values[6];
             int modifier = (arg_number>=8) ? std::stoi(arg_values[7]) : 0;
-            if(algorithm<0 || algorithm>6) throw std::exception();
+            if(algorithm<0 || algorithm>5) throw std::exception();
             if(type<0 || type>3) throw std::exception();
             if(amount<0) throw std::exception();
             benchmark_mode(algorithm, type, amount, distribution ,output, timer, modifier);
@@ -177,9 +177,6 @@ int Main::sorting(int algorithm, Structure<T>& structure, Timer timer, int modif
             break;
         case 5:
             sort.quick_sort_multithreaded(structure,0,structure.get_size()-1, modifier);
-            break;
-        case 6:
-            sort.multi_quick_sort(structure,0,structure.get_size()-1, modifier);
             break;
         default:
             break;
