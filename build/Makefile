@@ -128,30 +128,6 @@ aizo/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\aizo.dir\build.make CMakeFiles/aizo.dir/build
 .PHONY : aizo/fast
 
-BoardGame.obj: BoardGame.cpp.obj
-.PHONY : BoardGame.obj
-
-# target to build an object file
-BoardGame.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\aizo.dir\build.make CMakeFiles/aizo.dir/BoardGame.cpp.obj
-.PHONY : BoardGame.cpp.obj
-
-BoardGame.i: BoardGame.cpp.i
-.PHONY : BoardGame.i
-
-# target to preprocess a source file
-BoardGame.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\aizo.dir\build.make CMakeFiles/aizo.dir/BoardGame.cpp.i
-.PHONY : BoardGame.cpp.i
-
-BoardGame.s: BoardGame.cpp.s
-.PHONY : BoardGame.s
-
-# target to generate assembly for a file
-BoardGame.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\aizo.dir\build.make CMakeFiles/aizo.dir/BoardGame.cpp.s
-.PHONY : BoardGame.cpp.s
-
 FileHandler.obj: FileHandler.cpp.obj
 .PHONY : FileHandler.obj
 
@@ -305,9 +281,6 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... aizo
-	@echo ... BoardGame.obj
-	@echo ... BoardGame.i
-	@echo ... BoardGame.s
 	@echo ... FileHandler.obj
 	@echo ... FileHandler.i
 	@echo ... FileHandler.s

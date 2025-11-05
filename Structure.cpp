@@ -3,7 +3,6 @@
 //
 
 #include "Structure.h"
-#include "BoardGame.h"
 #include <cstring>
 
 template<typename T>
@@ -83,4 +82,3 @@ T* Structure<T>::get_array() {
 template class Structure<int>;
 template class Structure<float>;
 template class Structure<char*>;
-template class Structure<BoardGame>;

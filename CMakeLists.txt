@@ -15,8 +15,6 @@ add_executable(aizo
         Timer.h
         RandomHandler.cpp
         RandomHandler.h
-        BoardGame.cpp
-        BoardGame.h
         Sort.cpp
         Sort.h
 )

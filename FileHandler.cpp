@@ -9,7 +9,6 @@
 #include <string>
 #include <stdexcept>
 #include "Structure.h"
-#include "BoardGame.h"
 #include <cstring>
 
 // Reads the file in single file mode, line by line, adding elements to Structure.
@@ -59,19 +58,6 @@ char* FileHandler::convert<char*>(std::string &text) {
     return copy;
 }
 
-// Converts String from .txt file to Board Game
-template<>
-BoardGame FileHandler::convert<BoardGame>(std::string &text) {
-    std::stringstream ss(text);
-    std::string name;
-    int players,time,difficulty,happinness;
-    if(ss >> name >> players >> time >> difficulty >> happinness){
-        return BoardGame(name,players,time,difficulty,happinness);
-    }
-    throw std::runtime_error("Error");
-}
-
-
 
 // Save result of single test to a file (int, float, char[])
 template<typename T>
@@ -100,10 +86,6 @@ std::string FileHandler::write_element<char*>(char* element) {
     return element;
 }
 
-template<>
-std::string FileHandler::write_element<BoardGame>(BoardGame element) {
-    return element.to_string();
-}
 
 // Saves result of a single test in benchmark mode. It saves info about all parameters used.
 void FileHandler::save_test(int i, int algorithm, int type, int amount, int distribution, int sorting_time, std::string& output, int modifier) {
@@ -117,17 +99,12 @@ void FileHandler::save_test(int i, int algorithm, int type, int amount, int dist
     if(count>0) file2 << "\n";
     file2 << i << "\t";
 
-    if(algorithm==0) file2 << "Insrt" << "\t";
-    else if(algorithm==1) file2 << "Heaps" << "\t";
-    else if(algorithm==2) file2 << "Shell" << "\t";
-    else if(algorithm==3) file2 << "Quick" << "\t";
-    else if(algorithm==4) file2 << "Drunk" << "\t";
-    else if(algorithm==5) file2 << "Multi" << "\t";
+    if(algorithm==0) file2 << "Quick" << "\t";
+    else if(algorithm==1) file2 << "Multi" << "\t";
 
     if(type==0) file2 << "Intgr" << "\t";
     else if(type==1) file2 << "Float" << "\t";
     else if(type==2) file2 << "Char*" << "\t";
-    else if(type==3) file2 << "Board" << "\t";
 
     file2 << amount << "\t";
 
@@ -141,7 +118,7 @@ void FileHandler::save_test(int i, int algorithm, int type, int amount, int dist
         if(modifier==0) file2 << "Frml1" << "\t";
         else if(modifier==1) file2 << "Frml2" << "\t";
     }
-    else if(algorithm==3 || algorithm==5){
+    else if(algorithm==0 || algorithm==1){
         if(modifier==0) file2 << "MID-P" << "\t";
         else if(modifier==1) file2 << "LFT-P" << "\t";
         else if(modifier==2) file2 << "RGH-P" << "\t";
@@ -160,9 +137,7 @@ std::string FileHandler::write_element(T element) {
 template void FileHandler::save_to_file<int>(std::string&, Structure<int>&);
 template void FileHandler::save_to_file<float>(std::string&, Structure<float>&);
 template void FileHandler::save_to_file<char*>(std::string&, Structure<char*>&);
-template void FileHandler::save_to_file<BoardGame>(std::string&, Structure<BoardGame>&);
 
 template void FileHandler::read_file(std::string &filename, Structure<int> &structure);
 template void FileHandler::read_file(std::string &filename, Structure<float> &structure);
 template void FileHandler::read_file(std::string &filename, Structure<char*> &structure);
-template void FileHandler::read_file(std::string &filename, Structure<BoardGame> &structure);

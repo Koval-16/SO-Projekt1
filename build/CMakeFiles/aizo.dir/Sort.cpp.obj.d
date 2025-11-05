@@ -146,7 +146,6 @@ CMakeFiles/aizo.dir/Sort.cpp.obj: \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/ostream.tcc \
  C:/Program\ Files/mingw64/include/c++/14.2.0/istream \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/istream.tcc \
- C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\BoardGame.h \
  C:/Program\ Files/mingw64/include/c++/14.2.0/future \
  C:/Program\ Files/mingw64/include/c++/14.2.0/mutex \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/chrono.h \

@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include "Structure.h"
-#include "BoardGame.h"
 
 // Class FileHandler handles files operations such as reading and saving
 // for both: single file mode and benchmark mode.

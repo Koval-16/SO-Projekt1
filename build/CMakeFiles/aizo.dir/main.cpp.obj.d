@@ -157,6 +157,5 @@ CMakeFiles/aizo.dir/main.cpp.obj: \
  C:/Program\ Files/mingw64/include/c++/14.2.0/ctime \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/parse_numbers.h \
  C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\FileHandler.h \
- C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\BoardGame.h \
  C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\RandomHandler.h \
  C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\Sort.h

@@ -7,7 +7,6 @@
 #include "Structure.h"
 #include "FileHandler.h"
 #include "RandomHandler.h"
-#include "BoardGame.h"
 #include "Sort.h"
 #include "Timer.h"
 
@@ -75,9 +74,6 @@ void Main::file_test_mode(int algorithm, int type, std::string& input, std::stri
         case 2:
             process_file<char*>(algorithm,input,output,timer,modifier);
             break;
-        case 3:
-            process_file<BoardGame>(algorithm,input,output,timer,modifier);
-            break;
         default:
             break;
     }
@@ -116,9 +112,6 @@ void Main::benchmark_mode(int algorithm, int type, int amount, int distribution,
         case 2:
             process_test<char*>(algorithm,type,amount,distribution,output,timer,modifier);
             break;
-        case 3:
-            process_test<BoardGame>(algorithm,type,amount,distribution,output,timer,modifier);
-            break;
         default:
             break;
     }
@@ -130,25 +123,23 @@ void Main::help_mode() {
                  "FILE TEST MODE:\n"
                  "\tUsage:\n"
                  "\t./aizo --file <algorithm> <type> <inputFile> <outputFile>\n"
-                 "\t<algorithm>\tSorting algorithm to use: 0-InsertionSort, 1-HeapSort, 2-ShellSort, 3-QuickSort, 4-DrunkSort\n"
-                 "\t<type>\t\tData type to use: 0-int, 1-float, 2-char[], 3-BoardGame\n"
+                 "\t<algorithm>\tSorting algorithm to use: 0-Normal Quick Sort, 1-Multithreaded Quick Sort\n"
+                 "\t<type>\t\tData type to use: 0-int, 1-float, 2-char[]\n"
                  "\t<inputFile>\tName of input file storing data, with extension\n"
                  "\t<outputFile>\tName of output file, where sorted data will be saved.\n"
                  "\t[modifier]\tUsed for:\n"
-                 "\t\tShellsort(0 - first formula, 1 - second formula)\n"
-                 "\t\tand Quicksort: Pivot(0-middle, 1-left, 2-right, 3-random)\n"
-                 "\t\tif not provided: modifier=0. Other algorithms don't use the modifier.\n"
+                 "\t\tQuicksort: Pivot(0-middle, 1-left, 2-right, 3-random)\n"
+                 "\t\tif not provided: modifier=0.\n"
                  "\nBENCHMARK MODE:\n\tUsage:\n"
                  "\t./aizo --test <algorithm> <type> <amount> <distribution> <outputFile>\n"
-                 "\t<algorithm>\tSorting algorithm to use: 0-InsertionSort, 1-HeapSort, 2-ShellSort, 3-QuickSort, 4-DrunkSort\n"
-                 "\t<type>\t\tData type to use: 0-int, 1-float, 2-char[], 3-BoardGame\n"
+                 "\t<algorithm>\tSorting algorithm to use: 0-Normal Quick Sort, 1-Multithreaded Quick Sort\n"
+                 "\t<type>\t\tData type to use: 0-int, 1-float, 2-char[]\n"
                  "\t<amount>\tAmount of elements to be generated\n"
                  "\t<distribution>\tDistribution of elements: 0-random, 1-sorted, 2-sorted oppositely, 3-first half sorted, 4-second half sorted\n"
                  "\t<outputFile>\tName of output file, where collected information will be saved.\n"
                  "\t[modifier]\tUsed for:\n"
-                 "\t\tShellsort(0 - first formula, 1 - second formula)\n"
-                 "\t\tand Quicksort: Pivot(0-middle, 1-left, 2-right, 3-random)\n"
-                 "\t\tif not provided: modifier=0. Other algorithms don't use the modifier.\n"
+                 "\t\tQuicksort: Pivot(0-middle, 1-left, 2-right, 3-random)\n"
+                 "\t\tif not provided: modifier=0.\n"
                  "\nHELP MODE:\n\tUsage:\n"
                  "\t./aizo --help\n"<< std::endl;
 }
@@ -161,21 +152,9 @@ int Main::sorting(int algorithm, Structure<T>& structure, Timer timer, int modif
     timer.start();
     switch(algorithm){
         case 0:
-            sort.insertion_sort(structure);
-            break;
-        case 1:
-            sort.heap_sort(structure);
-            break;
-        case 2:
-            sort.shell_sort(structure, modifier);
-            break;
-        case 3:
             sort.quick_sort(structure,0,structure.get_size()-1, modifier);
             break;
-        case 4:
-            sort.drunk_sort(structure);
-            break;
-        case 5:
+        case 1:
             sort.quick_sort_multithreaded(structure,0,structure.get_size()-1, modifier);
             break;
         default:

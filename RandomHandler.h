@@ -5,7 +5,6 @@
 #ifndef AIZO_RANDOMHANDLER_H
 #define AIZO_RANDOMHANDLER_H
 #include "Structure.h"
-#include "BoardGame.h"
 
 
 class RandomHandler {

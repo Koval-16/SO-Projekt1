@@ -21,10 +21,10 @@ void RandomHandler::create_array(int amount, Structure<T> &structure, int distri
         case 0:
             break;
         case 1:
-            sort.heap_sort(structure);
+            sort.quick_sort(structure,0,structure.get_size()-1,0);
             break;
         case 2:
-            sort.heap_sort(structure);
+            sort.quick_sort(structure,0,structure.get_size()-1,0);
             for(int i=0; i<size/2; i++){
                 T temp = structure.get_element(i);
                 structure.get_array()[i] = structure.get_element(size-i-1);
@@ -32,7 +32,7 @@ void RandomHandler::create_array(int amount, Structure<T> &structure, int distri
             }
             break;
         case 3:
-            sort.heap_sort(structure);
+            sort.quick_sort(structure,0,structure.get_size()-1,0);
             for(int i=size; i<amount; i++){
                 T element = choose_random<T>();
                 structure.add_element(element);
@@ -44,7 +44,7 @@ void RandomHandler::create_array(int amount, Structure<T> &structure, int distri
                 T element = choose_random<T>();
                 str_help.add_element(element);
             }
-            sort.heap_sort(str_help);
+            sort.quick_sort(structure,0,structure.get_size()-1,0);
             for(int i=0; i<size; i++){
                 structure.add_element(str_help.get_array()[i]);
             }
@@ -83,27 +83,8 @@ char* RandomHandler::choose_random<char*>() {
     return random_string;
 }
 
-template<>
-BoardGame RandomHandler::choose_random<BoardGame>() {
-    std::random_device device;
-    std::mt19937 rng(device());
-    std::uniform_int_distribution<int> dist1(1,10);
-    std::uniform_int_distribution<int> dist2(5,480);
-    std::uniform_int_distribution<int> dist3(5,25);
-    std::uniform_int_distribution<int> dist4(0,25);
-    std::string characters = "abcdefghijklmnopqrstuwvxyz";
-    int length = dist3(rng);
-    std::string name;
-    for(int j=0; j<length; j++) name+= characters[dist4(rng)];
-    int players = dist1(rng);
-    int time = dist2(rng);
-    int difficulty = dist1(rng);
-    int happiness = dist1(rng);
-    BoardGame game(name,players,time,difficulty,happiness);
-    return game;
-}
+
 
 template void RandomHandler::create_array<int>(int amount, Structure<int> &structure, int distribution);
 template void RandomHandler::create_array<float>(int amount, Structure<float> &structure, int distribution);
 template void RandomHandler::create_array<char*>(int amount, Structure<char*> &structure, int distribution);
-template void RandomHandler::create_array<BoardGame>(int amount, Structure<BoardGame> &structure, int distribution);

@@ -145,7 +145,6 @@ CMakeFiles/aizo.dir/Structure.cpp.obj: \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/ostream.tcc \
  C:/Program\ Files/mingw64/include/c++/14.2.0/istream \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/istream.tcc \
- C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\BoardGame.h \
  C:/Program\ Files/mingw64/include/c++/14.2.0/cstring \
  C:/Program\ Files/mingw64/x86_64-w64-mingw32/include/string.h \
  C:/Program\ Files/mingw64/x86_64-w64-mingw32/include/sec_api/string_s.h

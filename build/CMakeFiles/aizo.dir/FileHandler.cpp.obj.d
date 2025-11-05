@@ -146,7 +146,6 @@ CMakeFiles/aizo.dir/FileHandler.cpp.obj: \
  C:/Program\ Files/mingw64/include/c++/14.2.0/istream \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/istream.tcc \
  C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\Structure.h \
- C:\Users\kuba\Desktop\5\ SEMESTR\Systemy\ Operacyjne\p1\projekt\BoardGame.h \
  C:/Program\ Files/mingw64/include/c++/14.2.0/fstream \
  C:/Program\ Files/mingw64/include/c++/14.2.0/bits/codecvt.h \
  C:/Program\ Files/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/basic_file.h \

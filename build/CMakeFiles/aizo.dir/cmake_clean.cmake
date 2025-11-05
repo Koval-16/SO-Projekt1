@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/aizo.dir/BoardGame.cpp.obj"
-  "CMakeFiles/aizo.dir/BoardGame.cpp.obj.d"
   "CMakeFiles/aizo.dir/FileHandler.cpp.obj"
   "CMakeFiles/aizo.dir/FileHandler.cpp.obj.d"
   "CMakeFiles/aizo.dir/RandomHandler.cpp.obj"
